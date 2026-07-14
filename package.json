@@ -9,30 +9,17 @@
     "build": "cd suams-app && npm run build",
     "start": "cd suams-app && npm run start",
     "lint": "cd suams-app && npm run lint",
-    "deploy": "npx --yes vercel suams-app",
-    "deploy-log": "node C:\\Users\\o\\.gemini\\antigravity-ide\\scratch\\deploy.js",
-    "deploy-direct": "npx --yes vercel suams-app 2> vercel-err.log 1> vercel-out.log",
-    "netlify-version": "npx --yes netlify-cli --version 2> netlify-err.log 1> netlify-out.log",
-    "list-npm": "dir C:\\Users\\o\\AppData\\Roaming\\npm > npm-folder.log",
     "download-git": "powershell -Command \"Invoke-WebRequest -Uri 'https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/MinGit-2.45.2-64-bit.zip' -OutFile 'mingit.zip'\"",
     "extract-git": "powershell -Command \"Expand-Archive -Path 'mingit.zip' -DestinationPath 'mingit' -Force\"",
-    "git-version": "mingit\\cmd\\git.exe --version",
-    "git-init": "mingit\\cmd\\git.exe init",
-    "git-config": "mingit\\cmd\\git.exe config user.name \"SUAMS Deployer\" && mingit\\cmd\\git.exe config user.email \"deployer@suams.hu.edu.pk\"",
-    "git-commit": "mingit\\cmd\\git.exe add . && mingit\\cmd\\git.exe commit -m \"Initial commit\"",
-    "git-push": "mingit\\cmd\\git.exe remote remove origin 2>nul & mingit\\cmd\\git.exe remote add origin https://github.com/MShahab7799/hu-suams.git && mingit\\cmd\\git.exe branch -M main && mingit\\cmd\\git.exe push -u origin main",
+    "git-commit": "mingit\\cmd\\git.exe add . && mingit\\cmd\\git.exe commit -m \"Register m@gmail.com user\"",
+    "git-push": "mingit\\cmd\\git.exe push origin main",
     "vercel-deploy": "npx vercel --confirm --prod --cwd suams-app --env AUTH_SECRET=hu-suams-secret-2024-change-in-production-please",
-    "vercel-whoami": "npx vercel whoami",
-    "local-vercel-version": "npx vercel --version",
-    "install-vercel": "npm install --save-dev vercel",
-    "env": "set > env.log",
+    "query-local-db": "node C:\\Users\\o\\.gemini\\antigravity-ide\\scratch\\query-db.js",
+    "git-diff-db": "mingit\\cmd\\git.exe diff suams-app/db.json",
     "postinstall": ""
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
-  },
-  "devDependencies": {
-    "vercel": "^56.2.0"
   }
 }
