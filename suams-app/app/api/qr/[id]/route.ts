@@ -31,8 +31,8 @@ export async function GET(req: NextRequest, { params }: Params) {
           },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const a = db.appointments?.find((item: any) => item.id === id);
         if (!a) return null;
 

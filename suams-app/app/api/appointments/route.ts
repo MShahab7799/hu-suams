@@ -80,8 +80,8 @@ export async function GET(req: NextRequest) {
         ]);
         return { appointments, total };
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let appts = db.appointments || [];
 
         // Apply filters based on role
@@ -235,8 +235,8 @@ export async function POST(req: NextRequest) {
 
         return { ...apt, officialName: official.user.fullName };
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const official = db.officials?.find((o: any) => o.id === officialId);
         if (!official || !official.isAvailable) {
           throw new Error('Official not found or not available');
@@ -288,7 +288,7 @@ export async function POST(req: NextRequest) {
           createdAt: new Date().toISOString(),
         });
 
-        writeLocalDB(db);
+        await writeLocalDB(db);
         return { ...newApt, officialName: official.user?.fullName || 'Official' };
       }
     );

@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
         return { success: true };
       },
       async () => {
-        const db = readLocalDB();
+        const db = await readLocalDB();
         db.users = db.users || [];
         const idx = db.users.findIndex((u: any) =>
           u.resetToken === token &&
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
         db.users[idx].passwordHash = passwordHash;
         db.users[idx].resetToken = null;
         db.users[idx].resetTokenExpiry = null;
-        writeLocalDB(db);
+        await writeLocalDB(db);
 
         return { success: true };
       }

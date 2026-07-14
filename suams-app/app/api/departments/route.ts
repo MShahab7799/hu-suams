@@ -17,8 +17,8 @@ export async function GET(req: NextRequest) {
           orderBy: { name: 'asc' },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let list = db.departments || [];
         if (facultyId) {
           list = list.filter((d: any) => d.facultyId === facultyId);

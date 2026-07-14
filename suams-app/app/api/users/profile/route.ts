@@ -34,8 +34,8 @@ export async function GET(req: NextRequest) {
           },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const found = db.users?.find((u: any) => u.id === userId);
         if (!found) return null;
         return {
@@ -95,8 +95,8 @@ export async function PATCH(req: NextRequest) {
           });
           return user?.passwordHash;
         },
-        () => {
-          const db = readLocalDB();
+        async () => {
+          const db = await readLocalDB();
           const user = db.users?.find((u: any) => u.id === userId);
           return user?.passwordHash;
         }
@@ -151,8 +151,8 @@ export async function PATCH(req: NextRequest) {
           },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const idx = db.users?.findIndex((u: any) => u.id === userId);
         if (idx === -1 || idx === undefined) {
           throw new Error('User not found');
@@ -164,7 +164,7 @@ export async function PATCH(req: NextRequest) {
           ...updateData,
         };
         db.users[idx] = updated;
-        writeLocalDB(db);
+        await writeLocalDB(db);
 
         return {
           id: updated.id,

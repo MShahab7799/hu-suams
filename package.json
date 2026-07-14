@@ -11,11 +11,10 @@
     "lint": "cd suams-app && npm run lint",
     "download-git": "powershell -Command \"Invoke-WebRequest -Uri 'https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/MinGit-2.45.2-64-bit.zip' -OutFile 'mingit.zip'\"",
     "extract-git": "powershell -Command \"Expand-Archive -Path 'mingit.zip' -DestinationPath 'mingit' -Force\"",
-    "git-commit": "mingit\\cmd\\git.exe add . && mingit\\cmd\\git.exe commit -m \"Register m@gmail.com user\"",
+    "git-commit": "mingit\\cmd\\git.exe add . && mingit\\cmd\\git.exe commit -m \"Fix production authentication with Cloud KV fallback\"",
     "git-push": "mingit\\cmd\\git.exe push origin main",
     "vercel-deploy": "npx vercel --confirm --prod --cwd suams-app --env AUTH_SECRET=hu-suams-secret-2024-change-in-production-please",
-    "query-local-db": "node C:\\Users\\o\\.gemini\\antigravity-ide\\scratch\\query-db.js",
-    "git-diff-db": "mingit\\cmd\\git.exe diff suams-app/db.json",
+    "list-env": "npx vercel env ls --cwd suams-app",
     "postinstall": ""
   },
   "engines": {

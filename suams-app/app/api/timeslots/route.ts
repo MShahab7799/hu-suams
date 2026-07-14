@@ -26,8 +26,8 @@ export async function GET(req: NextRequest) {
             select: { id: true }
           });
         },
-        () => {
-          const db = readLocalDB();
+        async () => {
+          const db = await readLocalDB();
           return db.officials?.find((o: any) => o.userId === userId);
         }
       );
@@ -47,8 +47,8 @@ export async function GET(req: NextRequest) {
           orderBy: [{ dayOfWeek: 'asc' }, { startTime: 'asc' }]
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let list = db.timeSlots || [];
         list = list.filter((s: any) => s.officialId === officialId && s.isActive !== false);
         list.sort((a: any, b: any) => {
@@ -95,8 +95,8 @@ export async function POST(req: NextRequest) {
           }
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         db.timeSlots = db.timeSlots || [];
         const slot = {
           id: 'slot-' + Math.random().toString(36).substring(2, 9),
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
           ...slot,
           createdAt: slot.createdAt.toISOString()
         });
-        writeLocalDB(db);
+        await writeLocalDB(db);
         return slot;
       }
     );
@@ -144,11 +144,11 @@ export async function DELETE(req: NextRequest) {
           where: { id }
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         db.timeSlots = db.timeSlots || [];
         db.timeSlots = db.timeSlots.filter((s: any) => s.id !== id);
-        writeLocalDB(db);
+        await writeLocalDB(db);
       }
     );
 

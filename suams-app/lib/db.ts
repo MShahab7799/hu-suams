@@ -102,7 +102,23 @@ if (!fs.existsSync(DB_FILE)) {
 }
 
 // Read helper
-export function readLocalDB() {
+export async function readLocalDB() {
+  if (process.env.VERCEL) {
+    try {
+      const res = await fetch(`https://kvdb.io/suams_app_db_cafcf0ca/db_data`, { cache: 'no-store' });
+      if (res.ok) {
+        return await res.json();
+      } else if (res.status === 404) {
+        console.log('⚡ [SUAMS KV Fallback] KVdb.io is empty, seeding with committed local db.json...');
+        const localData = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+        await writeLocalDB(localData);
+        return localData;
+      }
+    } catch (e) {
+      console.error('⚡ [SUAMS KV Fallback] Failed to read from KVdb.io:', e);
+    }
+  }
+
   try {
     return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
   } catch (e) {
@@ -111,7 +127,22 @@ export function readLocalDB() {
 }
 
 // Write helper
-export function writeLocalDB(data: any) {
+export async function writeLocalDB(data: any) {
+  if (process.env.VERCEL) {
+    try {
+      const res = await fetch(`https://kvdb.io/suams_app_db_cafcf0ca/db_data`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        return true;
+      }
+    } catch (e) {
+      console.error('⚡ [SUAMS KV Fallback] Failed to write to KVdb.io:', e);
+    }
+  }
+
   try {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
     return true;

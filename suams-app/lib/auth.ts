@@ -45,8 +45,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               },
             });
           },
-          () => {
-            const db = readLocalDB();
+          async () => {
+            const db = await readLocalDB();
             const found = db.users?.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
             if (!found) return null;
             return {
@@ -84,8 +84,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               },
             });
           },
-          () => {
-            const db = readLocalDB();
+          async () => {
+            const db = await readLocalDB();
             const idx = db.users.findIndex((u: any) => u.id === user.id);
             if (idx !== -1) {
               db.users[idx].lastLoginAt = new Date().toISOString();
@@ -97,7 +97,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 resourceId: user.id,
                 createdAt: new Date().toISOString()
               });
-              writeLocalDB(db);
+              await writeLocalDB(db);
             }
           }
         ).catch(() => {});

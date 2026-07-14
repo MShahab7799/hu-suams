@@ -24,8 +24,8 @@ export async function GET(req: NextRequest) {
           orderBy: { createdAt: 'desc' },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let list = db.notifications || [];
         list = list.filter((n: any) => n.userId === userId);
         if (unreadOnly) {
@@ -73,8 +73,8 @@ export async function PATCH(req: NextRequest) {
           throw new Error('Invalid request payload');
         }
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         db.notifications = db.notifications || [];
         if (markAll) {
           db.notifications.forEach((n: any) => {
@@ -82,13 +82,13 @@ export async function PATCH(req: NextRequest) {
               n.isRead = true;
             }
           });
-          writeLocalDB(db);
+          await writeLocalDB(db);
           return { markedAll: true };
         } else if (notificationId) {
           const found = db.notifications.find((n: any) => n.id === notificationId);
           if (found) {
             found.isRead = true;
-            writeLocalDB(db);
+            await writeLocalDB(db);
             return found;
           }
           throw new Error('Notification not found');

@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "query-local-db": "node query-db.js",
     "lint": "eslint"
   },
   "dependencies": {

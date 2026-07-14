@@ -40,8 +40,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
           },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const a = db.appointments?.find((item: any) => item.id === id);
         if (!a) return null;
 
@@ -153,8 +153,8 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
         return updated;
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const idx = db.appointments?.findIndex((item: any) => item.id === id);
         if (idx === -1 || idx === undefined) throw new Error('Appointment not found');
 
@@ -177,7 +177,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
           createdAt: new Date().toISOString(),
         });
 
-        writeLocalDB(db);
+        await writeLocalDB(db);
         return appt;
       }
     );

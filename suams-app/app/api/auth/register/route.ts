@@ -58,8 +58,8 @@ export async function POST(req: NextRequest) {
         }
         return null;
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const existingEmail = db.users?.some((u: any) => u.email.toLowerCase() === email.toLowerCase());
         if (existingEmail) return 'email';
 
@@ -138,8 +138,8 @@ export async function POST(req: NextRequest) {
 
         return u;
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         const newUser = {
           id: 'user-' + Math.random().toString(36).substring(2, 9),
           fullName,
@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
           createdAt: new Date().toISOString()
         });
 
-        writeLocalDB(db);
+        await writeLocalDB(db);
 
         return {
           id: newUser.id,

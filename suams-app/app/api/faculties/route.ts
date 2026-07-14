@@ -11,8 +11,8 @@ export async function GET(req: NextRequest) {
           orderBy: { name: 'asc' },
         });
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         return db.faculties || [
           { id: 'ncs', name: 'Faculty of Natural & Computational Sciences', shortName: 'NCS' },
           { id: 'bhs', name: 'Faculty of Biological & Health Sciences', shortName: 'BHS' },

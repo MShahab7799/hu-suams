@@ -62,8 +62,8 @@ export async function GET(req: NextRequest) {
         ]);
         return { officials, total };
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let list = db.officials || [];
 
         // Apply filters

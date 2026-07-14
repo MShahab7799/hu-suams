@@ -27,8 +27,8 @@ export async function GET(req: NextRequest) {
             select: { id: true }
           });
         },
-        () => {
-          const db = readLocalDB();
+        async () => {
+          const db = await readLocalDB();
           return db.officials?.find((o: any) => o.userId === userId);
         }
       );
@@ -44,8 +44,8 @@ export async function GET(req: NextRequest) {
             where: { email: session.user?.email || '' }
           });
         },
-        () => {
-          const db = readLocalDB();
+        async () => {
+          const db = await readLocalDB();
           return db.assistants?.find((a: any) => a.email === session.user?.email);
         }
       );
@@ -65,8 +65,8 @@ export async function GET(req: NextRequest) {
         });
         return appts;
       },
-      () => {
-        const db = readLocalDB();
+      async () => {
+        const db = await readLocalDB();
         let list = db.appointments || [];
         if (where.officialId) {
           list = list.filter((a: any) => a.officialId === where.officialId);
