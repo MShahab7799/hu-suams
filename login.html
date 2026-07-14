@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Sign in or create your account on Hazara University Smart Appointment Management System."/>
+  <title>Sign In — Hazara University Smart Appointment System</title>
+  <link rel="icon" type="image/png" href="assets/logo.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- ═════════════════════════════════════
+       LEFT PANEL — Branding
+  ═════════════════════════════════════ -->
+  <div class="auth-left">
+    <!-- Decorative grid -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:40px 40px;"></div>
+    <!-- Decorative blobs -->
+    <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(197,160,40,0.12) 0%,transparent 60%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(27,77,62,0.3) 0%,transparent 60%);pointer-events:none;"></div>
+
+    <div class="auth-left-content">
+      <!-- Logo -->
+      <div class="auth-left-logo" style="display:flex;align-items:center;gap:1rem;">
+        <img src="assets/logo.png" alt="Hazara University Logo" style="width:60px;height:60px;border-radius:50%;box-shadow:0 4px 20px rgba(197,160,40,0.3);"/>
+        <div>
+          <div style="font-weight:700;font-size:1rem;">Hazara University</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Mansehra, KPK · Est. 2001</div>
+        </div>
+      </div>
+
+      <h1 class="auth-tagline">
+        Your Gateway to<br/>
+        <span>Smart Appointments</span>
+      </h1>
+
+      <p class="auth-desc">
+        Hazara University's digital appointment system lets students, faculty, and visitors
+        book meetings with university officials quickly and securely.
+      </p>
+
+      <div class="auth-feature-list">
+        <div class="auth-feature">
+          <div class="auth-feature-icon">⚡</div>
+          <span>Instant appointment booking with any university official</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">📊</div>
+          <span>Personal dashboard to track all your appointments</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">🔒</div>
+          <span>Secure, private, and encrypted data storage</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-icon">📱</div>
+          <span>Works seamlessly on any device</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Quote -->
+    <div style="position:relative;z-index:1;margin-top:auto;padding-top:var(--sp-xl);border-top:1px solid var(--border);">
+      <blockquote style="font-size:0.88rem;color:var(--text-secondary);font-style:italic;line-height:1.7;">
+        "Education is the most powerful weapon which you can use to change the world."
+      </blockquote>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;">— Nelson Mandela</div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════
+       RIGHT PANEL — Form
+  ═════════════════════════════════════ -->
+  <div class="auth-right">
+    <div class="auth-form-box">
+
+      <!-- Mobile logo (hidden on desktop) -->
+      <div class="auth-form-logo">
+        <img src="assets/logo.png" alt="Hazara University Logo"/>
+        <div style="margin-top:0.75rem;font-weight:700;font-size:1rem;">Hazara University</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);">Smart Appointment System</div>
+      </div>
+
+      <h2 class="auth-form-title">Welcome Back 👋</h2>
+      <p class="auth-form-sub">Sign in to access your appointment dashboard.</p>
+
+      <!-- Tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true" id="tab-login">Sign In</button>
+        <button class="auth-tab" data-tab="register" role="tab" aria-selected="false" id="tab-register">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" data-tab-panel="login" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email or Registration No.</label>
+          <input type="text" class="form-input" id="login-email" placeholder="e.g. student@hu.edu.pk" autocomplete="username" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div style="position:relative;">
+            <input type="password" class="form-input" id="login-password" placeholder="Enter your password" autocomplete="current-password" required style="padding-right:3rem;"/>
+            <button type="button" onclick="togglePass('login-password')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:1rem;" aria-label="Toggle password visibility">👁</button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-lg);">
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-secondary);cursor:pointer;">
+            <input type="checkbox" id="remember-me" style="accent-color:var(--primary-light);"/> Remember me
+          </label>
+          <a href="#" style="font-size:0.82rem;color:var(--accent);">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="btn-login-submit">
+          Sign In to Dashboard
+        </button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" data-tab-panel="register" class="hidden" onsubmit="handleRegister(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label" for="reg-first">First Name</label>
+            <input type="text" class="form-input" id="reg-first" placeholder="First name" required autocomplete="given-name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-last">Last Name</label>
+            <input type="text" class="form-input" id="reg-last" placeholder="Last name" required autocomplete="family-name"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-email">University Email</label>
+          <input type="email" class="form-input" id="reg-email" placeholder="name@hu.edu.pk" required autocomplete="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-regno">Registration Number</label>
+          <input type="text" class="form-input" id="reg-regno" placeholder="e.g. 2023-CS-001" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-department">Department</label>
+          <select class="form-select form-input" id="reg-department" required>
+            <option value="">Select your department...</option>
+            <option>Computer Science</option>
+            <option>Artificial Intelligence</option>
+            <option>Software Engineering</option>
+            <option>Information Technology</option>
+            <option>Data Science</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Botany</option>
+            <option>Zoology</option>
+            <option>Microbiology</option>
+            <option>Pharmacy (Pharm-D)</option>
+            <option>English</option>
+            <option>Economics</option>
+            <option>BBA</option>
+            <option>LLB</option>
+            <option>Psychology</option>
+            <option>Education</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <div style="position:relative;">
+            <input type="password" class="form-input" id="reg-password" placeholder="Create a strong password" required autocomplete="new-password" style="padding-right:3rem;"/>
+            <button type="button" onclick="togglePass('reg-password')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);">👁</button>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:var(--sp-lg);">
+          <label style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.82rem;color:var(--text-secondary);cursor:pointer;">
+            <input type="checkbox" id="agree-terms" required style="margin-top:2px;accent-color:var(--primary-light);"/>
+            I agree to the <a href="#" style="color:var(--accent);">Terms of Use</a> and <a href="#" style="color:var(--accent);">Privacy Policy</a> of Hazara University.
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="btn-register-submit">
+          Create Account
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="auth-divider">
+        <div class="auth-divider-line"></div>
+        <span class="auth-divider-text">or continue as</span>
+        <div class="auth-divider-line"></div>
+      </div>
+
+      <!-- Guest Button -->
+      <a href="appointments.html" class="btn btn-outline btn-full" id="btn-guest-continue" style="justify-content:center;">
+        👤 Continue as Guest
+      </a>
+
+      <!-- Bottom link -->
+      <p style="text-align:center;margin-top:var(--sp-xl);font-size:0.82rem;color:var(--text-muted);">
+        Need help? <a href="mailto:support@hu.edu.pk" style="color:var(--accent);">Contact IT Support</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+function togglePass(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value.trim();
+  if (!email || !pass) { showToast('Please fill in all fields.', 'warning'); return; }
+  // Demo: store simple session
+  sessionStorage.setItem('hu_user', JSON.stringify({ email, name: 'Student' }));
+  showToast('Signing in...', 'info', 1000);
+  setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+}
+
+function handleRegister(e) {
+  e.preventDefault();
+  const first = document.getElementById('reg-first').value.trim();
+  const last  = document.getElementById('reg-last').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  if (!first || !last || !email) { showToast('Please fill all required fields.', 'warning'); return; }
+  sessionStorage.setItem('hu_user', JSON.stringify({ email, name: first + ' ' + last }));
+  showToast('Account created! Redirecting...', 'success', 1200);
+  setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+}
+</script>
+</body>
+</html>

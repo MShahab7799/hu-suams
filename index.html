@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Book appointments online with Vice Chancellor, Registrar, Deans, Chairmen, HODs, and other university officials of Hazara University through one secure digital platform."/>
+  <meta name="keywords" content="Hazara University, appointment, booking, Vice Chancellor, Registrar, Mansehra"/>
+  <meta name="author" content="Hazara University"/>
+  <title>Smart Appointment System — Hazara University Mansehra</title>
+  <link rel="icon" type="image/png" href="assets/logo.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="HU Smart Appointment System"/>
+  <meta property="og:description" content="Book appointments with Hazara University officials online."/>
+  <meta property="og:image" content="assets/logo.png"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SPLASH SCREEN
+═══════════════════════════════════════════════════════════ -->
+<div id="splash-screen" role="status" aria-label="Loading">
+  <div class="splash-logo-wrap">
+    <div class="splash-logo-ring"></div>
+    <img src="assets/logo.png" alt="Hazara University Logo" class="splash-logo"/>
+  </div>
+  <div class="splash-title display-font">Hazara University</div>
+  <div class="splash-sub">Mansehra, KPK — Pakistan</div>
+  <div class="splash-progress">
+    <div class="splash-bar"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main Navigation">
+  <a href="index.html" class="nav-brand" aria-label="Hazara University Home">
+    <img src="assets/logo.png" alt="HU Logo" class="nav-logo"/>
+    <div class="nav-brand-text">
+      <span class="nav-brand-title">Hazara University</span>
+      <span class="nav-brand-sub">Mansehra · Est. 2001</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="index.html" class="nav-link active" id="nav-home">Home</a></li>
+    <li><a href="appointments.html" class="nav-link" id="nav-appointments">Book Appointment</a></li>
+    <li><a href="officials.html" class="nav-link" id="nav-officials">Officials</a></li>
+    <li><a href="index.html#faculties" class="nav-link" id="nav-faculties">Faculties</a></li>
+    <li><a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-outline btn-sm" id="btn-login">Sign In</a>
+    <a href="appointments.html" class="btn btn-primary btn-sm" id="btn-book-nav">Book Appointment</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav-mobile" id="nav-mobile" role="menu">
+  <a href="index.html" class="nav-link" role="menuitem">🏠 Home</a>
+  <a href="appointments.html" class="nav-link" role="menuitem">📅 Book Appointment</a>
+  <a href="officials.html" class="nav-link" role="menuitem">👥 Officials</a>
+  <a href="index.html#faculties" class="nav-link" role="menuitem">🏛️ Faculties</a>
+  <a href="dashboard.html" class="nav-link" role="menuitem">📊 Dashboard</a>
+  <hr style="border-color:var(--border);margin:0.5rem 0;"/>
+  <a href="login.html" class="btn btn-outline btn-full" role="menuitem">Sign In</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="hero-particles"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag" role="note">
+        <img src="assets/logo.png" alt="" style="width:18px;height:18px;border-radius:50%;"/>
+        Hazara University · Official Portal
+      </div>
+
+      <h1 class="hero-title" id="hero-heading">
+        Smart University<br/>
+        <span class="highlight">Appointment</span><br/>
+        Management System
+      </h1>
+
+      <p class="hero-sub">
+        Book appointments online with Vice Chancellor, Registrar, Deans, Chairmen, HODs,
+        Admission Office, Examination Office and other university officials of
+        <strong style="color:var(--accent);">Hazara University</strong> through one secure digital platform.
+      </p>
+
+      <div class="hero-cta">
+        <a href="appointments.html" class="btn btn-accent btn-lg" id="btn-book-hero">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Book Appointment
+        </a>
+        <a href="#faculties" class="btn btn-outline btn-lg" id="btn-explore-hero">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Explore Departments
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     STATS BAR
+═══════════════════════════════════════════════════════════ -->
+<section class="stats-bar" aria-label="University Statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-icon" aria-hidden="true">📚</div>
+        <div class="stat-value" data-counter="41" data-suffix="+" id="stat-programs">0+</div>
+        <div class="stat-label">Programs Offered</div>
+      </div>
+      <div class="stat-item reveal" data-delay="1">
+        <div class="stat-icon" aria-hidden="true">🎓</div>
+        <div class="stat-value" data-counter="20" data-suffix="+" id="stat-officials">0+</div>
+        <div class="stat-label">University Officials</div>
+      </div>
+      <div class="stat-item reveal" data-delay="2">
+        <div class="stat-icon" aria-hidden="true">👨‍🎓</div>
+        <div class="stat-value" data-counter="12000" data-suffix="+" id="stat-students">0+</div>
+        <div class="stat-label">Students Enrolled</div>
+      </div>
+      <div class="stat-item reveal" data-delay="3">
+        <div class="stat-icon" aria-hidden="true">🏛️</div>
+        <div class="stat-value" data-counter="4" data-suffix="" id="stat-faculties">0</div>
+        <div class="stat-label">Faculties</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURES
+═══════════════════════════════════════════════════════════ -->
+<section class="section" id="features" aria-labelledby="features-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag" aria-label="Features">⚡ Platform Features</div>
+      <h2 class="section-title display-font" id="features-heading">Everything You Need in One Place</h2>
+      <p class="section-subtitle">A comprehensive digital platform built for the modern university experience.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal" data-delay="0">
+        <div class="feature-icon" aria-hidden="true">📅</div>
+        <h3 class="feature-title">Instant Booking</h3>
+        <p class="feature-desc">Book appointments with any university official in minutes. Real-time availability, instant confirmation.</p>
+      </div>
+      <div class="feature-card reveal" data-delay="1">
+        <div class="feature-icon" aria-hidden="true">🔔</div>
+        <h3 class="feature-title">Smart Notifications</h3>
+        <p class="feature-desc">Get reminders for upcoming appointments. Never miss a scheduled meeting with any official.</p>
+      </div>
+      <div class="feature-card reveal" data-delay="2">
+        <div class="feature-icon" aria-hidden="true">🔒</div>
+        <h3 class="feature-title">Secure Platform</h3>
+        <p class="feature-desc">Enterprise-grade security protects your personal data and appointment history at all times.</p>
+      </div>
+      <div class="feature-card reveal" data-delay="3">
+        <div class="feature-icon" aria-hidden="true">📊</div>
+        <h3 class="feature-title">Personal Dashboard</h3>
+        <p class="feature-desc">Track all your appointments, view history, reschedule or cancel bookings from one dashboard.</p>
+      </div>
+      <div class="feature-card reveal" data-delay="0">
+        <div class="feature-icon" aria-hidden="true">🏛️</div>
+        <h3 class="feature-title">All Departments</h3>
+        <p class="feature-desc">Access appointment portals for all faculties, departments, and administrative offices.</p>
+      </div>
+      <div class="feature-card reveal" data-delay="1">
+        <div class="feature-icon" aria-hidden="true">📱</div>
+        <h3 class="feature-title">Mobile Friendly</h3>
+        <p class="feature-desc">Fully responsive design works beautifully on any device — desktop, tablet, or smartphone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURED OFFICIALS
+═══════════════════════════════════════════════════════════ -->
+<section class="section" id="officials-featured" style="background:var(--bg-2);" aria-labelledby="officials-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">👥 University Leadership</div>
+      <h2 class="section-title display-font" id="officials-heading">Meet the University Officials</h2>
+      <p class="section-subtitle">Connect directly with Hazara University's leadership and administrative team.</p>
+    </div>
+
+    <!-- Featured 3 officials -->
+    <div class="officials-grid" id="featured-officials-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">
+      <!-- Rendered via JS -->
+    </div>
+
+    <div class="text-center mt-xl">
+      <a href="officials.html" class="btn btn-outline btn-lg" id="btn-view-all-officials">
+        View All Officials
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FACULTIES & PROGRAMS
+═══════════════════════════════════════════════════════════ -->
+<section class="section" id="faculties" aria-labelledby="faculties-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🏛️ Academic Excellence</div>
+      <h2 class="section-title display-font" id="faculties-heading">Faculties &amp; Programs</h2>
+      <p class="section-subtitle">Explore the wide range of academic faculties and programs offered at Hazara University.</p>
+    </div>
+    <div class="faculty-grid" id="faculty-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CTA SECTION
+═══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-2);" aria-label="Call to Action">
+  <div class="container">
+    <div style="
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #0A1E16 50%, var(--bg-2) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--r-2xl);
+      padding: var(--sp-3xl);
+      text-align: center;
+      position: relative; overflow: hidden;
+    ">
+      <div style="
+        position:absolute;top:0;left:0;right:0;bottom:0;
+        background: radial-gradient(ellipse 50% 60% at 50% 0%, rgba(197,160,40,0.12) 0%, transparent 60%);
+        pointer-events:none;
+      "></div>
+      <div style="position:relative;z-index:1;">
+        <img src="assets/logo.png" alt="Hazara University" style="width:72px;height:72px;border-radius:50%;margin:0 auto var(--sp-xl);display:block;box-shadow:var(--shadow-gold);"/>
+        <h2 class="display-font" style="font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:var(--sp-md);">
+          Ready to Book Your Appointment?
+        </h2>
+        <p style="color:var(--text-secondary);max-width:500px;margin:0 auto var(--sp-2xl);font-size:1rem;line-height:1.8;">
+          Join thousands of Hazara University students who manage their appointments digitally. Fast, easy, secure.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="appointments.html" class="btn btn-accent btn-lg" id="btn-book-cta">
+            📅 Book Appointment Now
+          </a>
+          <a href="login.html" class="btn btn-outline btn-lg" id="btn-register-cta">
+            Create Account
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="assets/logo.png" alt="Hazara University Logo" class="footer-logo"/>
+          <div>
+            <div class="footer-brand-name">Hazara University</div>
+            <div class="footer-brand-sub">Mansehra · Est. 2001</div>
+          </div>
+        </div>
+        <p class="footer-desc">
+          Hazara University Mansehra is a premier public-sector university committed to academic excellence,
+          research innovation, and community development in the Hazara region of KPK, Pakistan.
+        </p>
+        <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+          <a href="https://www.hu.edu.pk" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--accent);">🌐 hu.edu.pk</a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">🏠 Home</a></li>
+          <li><a href="appointments.html" class="footer-link">📅 Book Appointment</a></li>
+          <li><a href="officials.html" class="footer-link">👥 University Officials</a></li>
+          <li><a href="index.html#faculties" class="footer-link">🏛️ Faculties & Programs</a></li>
+          <li><a href="dashboard.html" class="footer-link">📊 My Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Departments -->
+      <div>
+        <div class="footer-col-title">Departments</div>
+        <ul class="footer-links">
+          <li><a href="officials.html" class="footer-link">Vice Chancellor</a></li>
+          <li><a href="officials.html" class="footer-link">Registrar Office</a></li>
+          <li><a href="officials.html" class="footer-link">Examination Office</a></li>
+          <li><a href="officials.html" class="footer-link">Admissions Office</a></li>
+          <li><a href="officials.html" class="footer-link">Student Affairs</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li class="footer-link">📍 Havelian Road, Mansehra<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KPK, Pakistan</li>
+          <li><a href="tel:+92997414137" class="footer-link">📞 +92-997-414137</a></li>
+          <li><a href="mailto:info@hu.edu.pk" class="footer-link">✉️ info@hu.edu.pk</a></li>
+          <li><a href="https://www.hu.edu.pk" target="_blank" rel="noopener" class="footer-link">🌐 www.hu.edu.pk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        © 2024–2025 Hazara University Mansehra. All rights reserved. | Smart Appointment Management System
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div id="toast-container" role="status" aria-live="polite"></div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Render featured officials (top 3)
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('featured-officials-grid');
+  if (grid && typeof HU_DATA !== 'undefined') {
+    const featured = HU_DATA.officials.slice(0, 3);
+    grid.innerHTML = featured.map(o => `
+      <div class="official-card reveal">
+        <div class="official-card-header">
+          <div class="official-avatar">${o.avatar}</div>
+          <div class="official-info">
+            <div class="official-name">${o.name}</div>
+            <div class="official-title">${o.title}</div>
+            <div class="official-dept">${o.faculty}</div>
+          </div>
+          <div class="badge badge-${o.availability}" style="flex-shrink:0;">
+            <span class="badge-dot"></span>
+            ${o.availability === 'available' ? 'Available' : o.availability === 'limited' ? 'Limited' : 'Busy'}
+          </div>
+        </div>
+        <div class="official-card-body">
+          <div class="official-detail">
+            <svg class="official-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="official-detail-text">${o.officeHours}</span>
+          </div>
+          <div class="official-detail">
+            <svg class="official-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            </svg>
+            <span class="official-detail-text">${o.room}</span>
+          </div>
+        </div>
+        <div class="official-card-footer">
+          <span style="font-size:0.78rem;color:var(--text-muted);">📋 ${o.appointmentDuration} min slot</span>
+          <a href="appointments.html" class="btn btn-primary btn-sm">Book Appointment</a>
+        </div>
+      </div>
+    `).join('');
+    // Re-trigger reveal after dynamic content
+    document.querySelectorAll('.official-card.reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 200);
+    });
+  }
+
+  // Render faculty cards
+  const fg = document.getElementById('faculty-grid');
+  if (fg && typeof HU_DATA !== 'undefined') {
+    fg.innerHTML = HU_DATA.faculties.map((f, idx) => `
+      <div class="faculty-card reveal" data-delay="${idx}" id="faculty-${f.id}">
+        <div class="faculty-card-header" style="background:${f.gradient}20;">
+          <div style="position:absolute;inset:0;${f.gradient};opacity:0.08;"></div>
+          <div class="faculty-icon-wrap">${f.icon}</div>
+          <div class="faculty-name">${f.name}</div>
+          <p class="faculty-description">${f.description}</p>
+        </div>
+        <div class="faculty-card-body">
+          <div class="faculty-programs-header">
+            <span>${f.programs.length} Programs Available</span>
+            <svg class="faculty-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+          <div class="faculty-programs-list">
+            ${f.programs.map(p => `
+              <div class="program-item">
+                <span class="program-badge">${p.type}</span>
+                <span style="flex:1;">${p.name}</span>
+                <span class="program-duration">${p.duration}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Re-init faculty card clicks
+    document.querySelectorAll('.faculty-card').forEach(card => {
+      const header = card.querySelector('.faculty-programs-header');
+      if (!header) return;
+      header.addEventListener('click', () => {
+        const isExpanded = card.classList.contains('expanded');
+        document.querySelectorAll('.faculty-card.expanded').forEach(c => c.classList.remove('expanded'));
+        if (!isExpanded) card.classList.add('expanded');
+      });
+    });
+    // Trigger reveals
+    setTimeout(() => {
+      document.querySelectorAll('.faculty-card.reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 100);
+      });
+    }, 100);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "university-appointment",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Smart University Appointment Management System (SUAMS) for Hazara University",
+  "scripts": {
+    "install": "cd suams-app && npm install",
+    "dev": "cd suams-app && npm run dev",
+    "build": "cd suams-app && npm run build",
+    "start": "cd suams-app && npm run start",
+    "lint": "cd suams-app && npm run lint",
+    "deploy": "npx --yes vercel suams-app",
+    "deploy-log": "node C:\\Users\\o\\.gemini\\antigravity-ide\\scratch\\deploy.js",
+    "deploy-direct": "npx --yes vercel suams-app 2> vercel-err.log 1> vercel-out.log",
+    "netlify-version": "npx --yes netlify-cli --version 2> netlify-err.log 1> netlify-out.log",
+    "list-npm": "dir C:\\Users\\o\\AppData\\Roaming\\npm > npm-folder.log",
+    "download-git": "powershell -Command \"Invoke-WebRequest -Uri 'https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/MinGit-2.45.2-64-bit.zip' -OutFile 'mingit.zip'\"",
+    "extract-git": "powershell -Command \"Expand-Archive -Path 'mingit.zip' -DestinationPath 'mingit' -Force\"",
+    "git-version": "mingit\\cmd\\git.exe --version",
+    "git-init": "mingit\\cmd\\git.exe init",
+    "git-config": "mingit\\cmd\\git.exe config user.name \"SUAMS Deployer\" && mingit\\cmd\\git.exe config user.email \"deployer@suams.hu.edu.pk\"",
+    "git-commit": "mingit\\cmd\\git.exe add . && mingit\\cmd\\git.exe commit -m \"Initial commit\"",
+    "env": "set > env.log",
+    "postinstall": ""
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

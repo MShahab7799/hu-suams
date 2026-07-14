@@ -1,0 +1,394 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────────────────────────
+// ROLES & PERMISSIONS
+// ──────────────────────────────────────────────────────────────
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique @db.NVarChar(100) // e.g. "Student", "Admin"
+  description String?          @db.NVarChar(500)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  permissions RolePermission[]
+  users       User[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  action      String           @db.NVarChar(100) // e.g. "appointments:read"
+  resource    String           @db.NVarChar(100) // e.g. "appointments"
+  description String?          @db.NVarChar(500)
+  createdAt   DateTime         @default(now())
+
+  roles       RolePermission[]
+
+  @@unique([action, resource])
+  @@map("permissions")
+}
+
+model RolePermission {
+  id           String     @id @default(cuid())
+  roleId       String
+  permissionId String
+  createdAt    DateTime   @default(now())
+
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+// ──────────────────────────────────────────────────────────────
+// ACADEMIC STRUCTURE
+// ──────────────────────────────────────────────────────────────
+
+model Faculty {
+  id          String       @id @default(cuid())
+  name        String       @unique @db.NVarChar(200)
+  shortName   String       @unique @db.NVarChar(50)
+  description String?      @db.NVarChar(1000)
+  icon        String?      @db.NVarChar(10)
+  color       String?      @db.NVarChar(20)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  departments Department[]
+  users       User[]
+  officials   Official[]
+
+  @@map("faculties")
+}
+
+model Department {
+  id          String    @id @default(cuid())
+  name        String    @db.NVarChar(200)
+  shortName   String    @db.NVarChar(50)
+  facultyId   String
+  description String?   @db.NVarChar(1000)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  faculty     Faculty   @relation(fields: [facultyId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  programs    Program[]
+  users       User[]
+  officials   Official[]
+
+  @@unique([name, facultyId])
+  @@map("departments")
+}
+
+model Program {
+  id           String     @id @default(cuid())
+  name         String     @db.NVarChar(200)
+  shortName    String     @db.NVarChar(50)
+  departmentId String
+  degree       String     @db.NVarChar(50)  // BS, MS, PhD, Pharm-D, LLB, BBA
+  duration     Int        // in semesters
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users        User[]
+
+  @@map("programs")
+}
+
+// ──────────────────────────────────────────────────────────────
+// USERS
+// ──────────────────────────────────────────────────────────────
+
+model User {
+  id               String    @id @default(cuid())
+  fullName         String    @db.NVarChar(200)
+  universityId     String?   @unique @db.NVarChar(50)
+  cnic             String?   @unique @db.NVarChar(20)
+  email            String    @unique @db.NVarChar(255)
+  emailVerified    DateTime?
+  mobileNumber     String?   @db.NVarChar(20)
+  passwordHash     String    @db.NVarChar(255)
+  gender           String?   @db.NVarChar(50) // String instead of Enum for SQL Server
+  profilePicture   String?   @db.NVarChar(500)
+  role             String    @default("Student") @db.NVarChar(100) // String instead of Enum
+  semester         Int?      // for students only
+  isActive         Boolean   @default(true)
+  isEmailVerified  Boolean   @default(false)
+  rememberToken    String?   @db.NVarChar(255)
+  resetToken       String?   @db.NVarChar(255)
+  resetTokenExpiry DateTime?
+  verifyToken      String?   @db.NVarChar(255)
+  lastLoginAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  roleRef          Role?           @relation(fields: [roleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  roleId           String?
+  faculty          Faculty?        @relation(fields: [facultyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  facultyId        String?
+  department       Department?     @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  departmentId     String?
+  program          Program?        @relation(fields: [programId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  programId        String?
+
+  // Auth.js required
+  accounts         Account[]
+  sessions         Session[]
+
+  // Relations
+  official         Official?
+  bookedAppointments   Appointment[]   @relation("BookedBy")
+  notifications    Notification[]
+  auditLogs        AuditLog[]
+
+  @@index([email])
+  @@index([universityId])
+  @@index([role])
+  @@map("users")
+}
+
+// ──────────────────────────────────────────────────────────────
+// NEXTAUTH REQUIRED MODELS
+// ──────────────────────────────────────────────────────────────
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String  @db.NVarChar(50)
+  provider          String  @db.NVarChar(100)
+  providerAccountId String  @db.NVarChar(255)
+  refresh_token     String? @db.NVarChar(Max)
+  access_token      String? @db.NVarChar(Max)
+  expires_at        Int?
+  token_type        String? @db.NVarChar(50)
+  scope             String? @db.NVarChar(500)
+  id_token          String? @db.NVarChar(Max)
+  session_state     String? @db.NVarChar(500)
+
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @db.NVarChar(500)
+  userId       String
+  expires      DateTime
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String   @db.NVarChar(255)
+  token      String   @unique @db.NVarChar(500)
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ──────────────────────────────────────────────────────────────
+// OFFICIALS
+// ──────────────────────────────────────────────────────────────
+
+model Official {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  title            String    @db.NVarChar(200)    // Position title
+  officeLocation   String?   @db.NVarChar(300)
+  officeHours      String?   @db.NVarChar(500)
+  bio              String?   @db.NVarChar(2000)
+  appointmentDurationMins Int @default(20)
+  isAvailable      Boolean   @default(true)
+  facultyId        String?
+  departmentId     String?
+  maxDailyAppointments Int   @default(10)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  faculty          Faculty?  @relation(fields: [facultyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  department       Department? @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  assistants       Assistant[]
+  timeSlots        TimeSlot[]
+  appointments     Appointment[]
+
+  @@index([facultyId])
+  @@index([departmentId])
+  @@map("officials")
+}
+
+model Assistant {
+  id          String   @id @default(cuid())
+  officialId  String
+  name        String   @db.NVarChar(200)
+  email       String   @db.NVarChar(255)
+  phone       String?  @db.NVarChar(20)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  official    Official @relation(fields: [officialId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("assistants")
+}
+
+// ──────────────────────────────────────────────────────────────
+// APPOINTMENTS
+// ──────────────────────────────────────────────────────────────
+
+model TimeSlot {
+  id          String    @id @default(cuid())
+  officialId  String
+  dayOfWeek   Int       // 0=Sun, 1=Mon, ..., 6=Sat
+  startTime   String    @db.NVarChar(10) // "09:00"
+  endTime     String    @db.NVarChar(10) // "09:30"
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  official    Official  @relation(fields: [officialId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  appointments Appointment[]
+
+  @@unique([officialId, dayOfWeek, startTime])
+  @@map("time_slots")
+}
+
+model Appointment {
+  id            String            @id @default(cuid())
+  appointmentNo String            @unique @db.NVarChar(20) // APT-2024-0001
+  officialId    String
+  bookedById    String
+  timeSlotId    String?
+  appointmentDate DateTime
+  startTime     String            @db.NVarChar(10)
+  endTime       String            @db.NVarChar(10)
+  purpose       String            @db.NVarChar(1000)
+  notes         String?           @db.NVarChar(2000)
+  status        String            @default("Pending") @db.NVarChar(50) // String instead of Enum
+  rejectionReason String?         @db.NVarChar(1000)
+  rescheduleReason String?        @db.NVarChar(1000)
+  isUrgent      Boolean           @default(false)
+  reminderSent  Boolean           @default(false)
+  qrCode        String?           @db.NVarChar(500)
+  pdfPath       String?           @db.NVarChar(500)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  official      Official          @relation(fields: [officialId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  bookedBy      User              @relation("BookedBy", fields: [bookedById], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  timeSlot      TimeSlot?         @relation(fields: [timeSlotId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  notifications Notification[]
+
+  @@index([officialId])
+  @@index([bookedById])
+  @@index([appointmentDate])
+  @@index([status])
+  @@map("appointments")
+}
+
+// ──────────────────────────────────────────────────────────────
+// NOTIFICATIONS
+// ──────────────────────────────────────────────────────────────
+
+model Notification {
+  id            String           @id @default(cuid())
+  userId        String
+  appointmentId String?
+  type          String           @db.NVarChar(50) // String instead of Enum
+  title         String           @db.NVarChar(200)
+  message       String           @db.NVarChar(2000)
+  isRead        Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  appointment   Appointment?     @relation(fields: [appointmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ──────────────────────────────────────────────────────────────
+// AUDIT LOGS
+// ──────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id          String      @id @default(cuid())
+  userId      String?
+  action      String      @db.NVarChar(100) // String instead of Enum
+  resource    String      @db.NVarChar(100)
+  resourceId  String?     @db.NVarChar(100)
+  oldValue    String?     @db.NVarChar(Max)
+  newValue    String?     @db.NVarChar(Max)
+  ipAddress   String?     @db.NVarChar(50)
+  userAgent   String?     @db.NVarChar(500)
+  createdAt   DateTime    @default(now())
+
+  user        User?       @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([userId])
+  @@index([resource, resourceId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ──────────────────────────────────────────────────────────────
+// ANNOUNCEMENTS
+// ──────────────────────────────────────────────────────────────
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String   @db.NVarChar(200)
+  desc        String   @db.NVarChar(2000)
+  type        String   @db.NVarChar(50) // General, Emergency, System
+  time        String   @db.NVarChar(50)
+  createdAt   DateTime @default(now())
+
+  @@map("announcements")
+}
+
+// ──────────────────────────────────────────────────────────────
+// MEETING ROOMS
+// ──────────────────────────────────────────────────────────────
+
+model MeetingRoom {
+  id          String   @id @default(cuid())
+  name        String   @db.NVarChar(100)
+  location    String   @db.NVarChar(200)
+  capacity    Int
+  isAvailable Boolean  @default(true)
+
+  @@map("meeting_rooms")
+}
+
+// ──────────────────────────────────────────────────────────────
+// HELP ARTICLES (FAQs)
+// ──────────────────────────────────────────────────────────────
+
+model HelpArticle {
+  id          String   @id @default(cuid())
+  question    String   @db.NVarChar(500)
+  answer      String   @db.NVarChar(2000)
+  category    String   @db.NVarChar(100)
+
+  @@map("help_articles")
+}
+

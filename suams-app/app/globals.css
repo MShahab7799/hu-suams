@@ -1,0 +1,269 @@
+/* ── Google Fonts ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+/* ── Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Hazara University Brand */
+  --hu-primary:       #1B4D3E;
+  --hu-primary-light: #2E7D5A;
+  --hu-primary-dark:  #0F2D23;
+  --hu-accent:        #C5A028;
+  --hu-accent-light:  #E8C048;
+
+  /* Dark theme */
+  --bg:       #080E12;
+  --bg-2:     #0F1923;
+  --bg-3:     #162030;
+  --surface:  #1A2535;
+  --surface-2:#212E40;
+  --border:   rgba(255,255,255,0.07);
+  --border-accent: rgba(197,160,40,0.3);
+
+  /* Text — increased for readability */
+  --text-primary:   #F0F4F8;
+  --text-secondary: #8EA4B8;
+  --text-muted:     #4A6075;
+
+  /* Fonts */
+  --font-sans:    'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Glass */
+  --glass-bg:     rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+
+  /* Shadows */
+  --shadow-glow: 0 0 40px rgba(27,77,62,0.35);
+  --shadow-gold: 0 0 30px rgba(197,160,40,0.25);
+
+  /* Typography scale */
+  --text-xs:   12px;
+  --text-sm:   13.5px;
+  --text-base: 15px;
+  --text-lg:   17px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  36px;
+}
+
+/* ── Base Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 15px; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb {
+  background: var(--hu-primary-light);
+  border-radius: 9999px;
+}
+
+/* ── Typography Classes ─────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* Heading hierarchy */
+h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.1; }
+h2 { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
+h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
+h4 { font-size: 1rem; font-weight: 600; }
+h5, h6 { font-size: 0.9rem; font-weight: 600; }
+
+p { line-height: 1.65; }
+
+/* Dashboard-specific typography */
+.label-sm {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.label-md {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Glass Card ─────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Gradient Text ──────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, var(--hu-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, var(--hu-primary-light) 0%, var(--hu-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197,160,40,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(197,160,40,0); }
+}
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position: 200% center; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-up   { animation: fadeUp   0.6s ease both; }
+.animate-fade-in   { animation: fadeIn   0.4s ease both; }
+.animate-float     { animation: float    6s ease-in-out infinite; }
+.animate-spin-slow { animation: spin     8s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-slide-in  { animation: slideIn  0.4s ease both; }
+.animate-scale-in  { animation: scaleIn  0.3s ease both; }
+
+/* ── Input Autofill Fix ─────────────────────────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px var(--surface) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
+}
+
+/* ── Calendar Styles ────────────────────────────────────────── */
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.cal-day:hover:not(.cal-day-disabled):not(.cal-day-selected) {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.cal-day-selected {
+  background: linear-gradient(135deg, var(--hu-primary-light), var(--hu-primary));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(27,77,62,0.5);
+}
+
+.cal-day-today {
+  border: 1.5px solid var(--hu-accent);
+  color: var(--hu-accent);
+}
+
+.cal-day-disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cal-day-weekend {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Dashboard Card ─────────────────────────────────────────── */
+.dash-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+
+.dash-card:hover {
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* ── Badge ──────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ── Mobile Sidebar Overlay ─────────────────────────────────── */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+}
+
+/* ── Form improvements ──────────────────────────────────────── */
+input, select, textarea {
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── Responsive Table ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Browse and book appointments with all Hazara University officials — Vice Chancellor, Registrar, Deans, HODs, and more."/>
+  <title>Book Appointment — Hazara University Smart Appointment System</title>
+  <link rel="icon" type="image/png" href="assets/logo.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main Navigation">
+  <a href="index.html" class="nav-brand">
+    <img src="assets/logo.png" alt="HU Logo" class="nav-logo"/>
+    <div class="nav-brand-text">
+      <span class="nav-brand-title">Hazara University</span>
+      <span class="nav-brand-sub">Mansehra · Est. 2001</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
+    <li><a href="appointments.html" class="nav-link active" id="nav-appointments">Book Appointment</a></li>
+    <li><a href="officials.html" class="nav-link" id="nav-officials">Officials</a></li>
+    <li><a href="index.html#faculties" class="nav-link" id="nav-faculties">Faculties</a></li>
+    <li><a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="index.html" class="nav-link">🏠 Home</a>
+  <a href="appointments.html" class="nav-link">📅 Book Appointment</a>
+  <a href="officials.html" class="nav-link">👥 Officials</a>
+  <a href="index.html#faculties" class="nav-link">🏛️ Faculties</a>
+  <a href="dashboard.html" class="nav-link">📊 Dashboard</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE HERO
+═══════════════════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="container page-hero-content">
+    <div class="page-breadcrumb">
+      <a href="index.html" style="color:var(--accent);">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Book Appointment</span>
+    </div>
+    <h1 class="page-hero-title display-font">Book an Appointment</h1>
+    <p class="page-hero-sub">
+      Browse all university officials and book your appointment in a few simple steps.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════════════════════ -->
+<section style="padding:var(--sp-2xl) 0;background:var(--bg-2);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--sp-lg);text-align:center;">
+      <div style="padding:var(--sp-lg);">
+        <div style="font-size:2rem;margin-bottom:var(--sp-md);">🔍</div>
+        <div style="font-weight:700;margin-bottom:var(--sp-sm);">1. Find Official</div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Search or filter by department, role, or faculty.</div>
+      </div>
+      <div style="padding:var(--sp-lg);border-left:1px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:var(--sp-md);">📅</div>
+        <div style="font-weight:700;margin-bottom:var(--sp-sm);">2. Pick a Slot</div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Choose a date and available time slot.</div>
+      </div>
+      <div style="padding:var(--sp-lg);border-left:1px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:var(--sp-md);">📝</div>
+        <div style="font-weight:700;margin-bottom:var(--sp-sm);">3. Fill Details</div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Enter your name, registration number, and purpose.</div>
+      </div>
+      <div style="padding:var(--sp-lg);border-left:1px solid var(--border);">
+        <div style="font-size:2rem;margin-bottom:var(--sp-md);">✅</div>
+        <div style="font-weight:700;margin-bottom:var(--sp-sm);">4. Confirmed!</div>
+        <div style="font-size:0.82rem;color:var(--text-secondary);">Get your appointment ID and confirmation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OFFICIALS DIRECTORY
+═══════════════════════════════════════════════════════════ -->
+<section class="section filter-section" style="padding-top:var(--sp-2xl);">
+  <div class="container">
+    <!-- Filter + Search -->
+    <div class="filter-bar">
+      <div class="search-input-wrap" style="max-width:320px;">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="search" class="search-input" placeholder="Search officials..." aria-label="Search officials" data-target=".officials-grid" id="official-search"/>
+      </div>
+
+      <button class="filter-btn active" data-group="officials" data-filter="all" id="filter-all">
+        🔲 All Officials
+      </button>
+      <button class="filter-btn" data-group="officials" data-filter="administration" id="filter-admin">
+        🏛️ Administration
+      </button>
+      <button class="filter-btn" data-group="officials" data-filter="directors" id="filter-directors">
+        📋 Directors
+      </button>
+      <button class="filter-btn" data-group="officials" data-filter="deans" id="filter-deans">
+        🎓 Deans
+      </button>
+      <button class="filter-btn" data-group="officials" data-filter="hods" id="filter-hods">
+        👨‍🏫 HODs
+      </button>
+      <button class="filter-btn" data-group="officials" data-filter="offices" id="filter-offices">
+        🏢 Offices
+      </button>
+    </div>
+
+    <!-- Officials Grid (rendered by JS) -->
+    <div class="officials-grid" id="officials-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BOOKING MODAL
+═══════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="booking-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="booking-modal">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="official-avatar" id="book-official-avatar" style="width:52px;height:52px;font-size:0.95rem;">VC</div>
+        <div>
+          <div class="modal-title" id="book-official-name" id="modal-title">Book Appointment</div>
+          <div class="modal-sub" id="book-official-title">Official Title</div>
+        </div>
+      </div>
+      <button class="modal-close" data-close-modal="booking-modal-overlay" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Student Info -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label" for="book-student-name">Full Name *</label>
+          <input type="text" class="form-input" id="book-student-name" placeholder="Your full name" autocomplete="name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="book-student-reg">Registration No. *</label>
+          <input type="text" class="form-input" id="book-student-reg" placeholder="e.g. 2021-CS-001"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="book-purpose">Purpose of Visit *</label>
+        <select class="form-select form-input" id="book-purpose">
+          <option value="">Select purpose...</option>
+          <option>Academic Inquiry</option>
+          <option>Result / Transcript Issue</option>
+          <option>Admission Inquiry</option>
+          <option>Scholarship / Financial Aid</option>
+          <option>Certificate / Document Request</option>
+          <option>Course Registration Issue</option>
+          <option>Project / Research Guidance</option>
+          <option>Complaint / Grievance</option>
+          <option>General Meeting</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- Date Selection -->
+      <div class="form-group">
+        <label class="form-label">Select Date</label>
+        <div class="date-grid" id="date-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Time Slot -->
+      <div class="form-group">
+        <label class="form-label">Select Time Slot</label>
+        <div class="time-slots" id="time-slots-wrap">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div style="background:rgba(197,160,40,0.08);border:1px solid rgba(197,160,40,0.2);border-radius:var(--r-md);padding:0.75rem 1rem;font-size:0.8rem;color:var(--text-secondary);">
+        ⚠️ Please arrive 10 minutes before your appointment. Bring your university ID card.
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div style="display:flex;gap:0.75rem;">
+        <button class="btn btn-ghost btn-full" data-close-modal="booking-modal-overlay">Cancel</button>
+        <button class="btn btn-accent btn-full" onclick="confirmBooking()" id="btn-confirm-booking">
+          ✅ Confirm Appointment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONFIRMATION MODAL
+═══════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="confirm-modal-overlay" role="dialog" aria-modal="true" aria-label="Booking Confirmation">
+  <div class="modal">
+    <div class="modal-header" style="background:linear-gradient(135deg,rgba(27,77,62,0.5) 0%,var(--bg-2) 100%);">
+      <div>
+        <div class="modal-title" style="color:var(--status-available);">✅ Appointment Confirmed!</div>
+        <div class="modal-sub">Your appointment has been successfully booked.</div>
+      </div>
+      <button class="modal-close" data-close-modal="confirm-modal-overlay">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:var(--sp-xl);">
+        <div style="font-size:3.5rem;margin-bottom:var(--sp-md);">🎉</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--sp-sm);text-transform:uppercase;letter-spacing:2px;">Appointment ID</div>
+        <div id="confirm-id" style="font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--accent);"></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-lg);display:flex;flex-direction:column;gap:var(--sp-md);">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:var(--text-muted);">Official</span>
+          <span id="confirm-official" style="font-weight:600;text-align:right;max-width:220px;"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:var(--text-muted);">Date</span>
+          <span id="confirm-date" style="font-weight:600;"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:var(--text-muted);">Time</span>
+          <span id="confirm-time" style="font-weight:600;font-family:var(--font-mono);color:var(--accent);"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:var(--text-muted);">Office</span>
+          <span id="confirm-office" style="font-weight:600;text-align:right;max-width:220px;"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:var(--text-muted);">Purpose</span>
+          <span id="confirm-purpose" style="font-weight:600;"></span>
+        </div>
+      </div>
+      <div style="margin-top:var(--sp-lg);background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:var(--r-md);padding:0.75rem 1rem;font-size:0.8rem;color:var(--text-secondary);">
+        📩 Save your Appointment ID for reference. Visit <strong>Dashboard</strong> to manage your appointments.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div style="display:flex;gap:0.75rem;">
+        <button class="btn btn-ghost btn-full" data-close-modal="confirm-modal-overlay">Close</button>
+        <a href="dashboard.html" class="btn btn-primary btn-full">📊 View Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/appointments.js"></script>
+<script>
+// Filter officials by search query
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('official-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      document.querySelectorAll('.official-card').forEach(card => {
+        const visible = card.textContent.toLowerCase().includes(q);
+        card.style.display = visible ? '' : 'none';
+      });
+    });
+  }
+  // Wire filter buttons to data-category
+  document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn[data-group="officials"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.official-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>
